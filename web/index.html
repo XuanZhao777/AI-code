@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+    <style>
+        img {
+            max-width: 100%; /* Ensure images don't exceed their container width */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Remove any extra spacing beneath images */
+            margin-top: 10px; /* Add some margin between each paragraph and image */
+        }
+    </style>
+</head>
+<body>
+    {% for summary, img_tag in summary_and_images %}
+        <div>
+            {{ summary|safe }}
+            {{ img_tag|safe }}
+        </div>
+    {% endfor %}
+</body>
+</html>
