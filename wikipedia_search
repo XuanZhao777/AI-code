@@ -1,0 +1,102 @@
+import wikipedia
+
+
+def modify_inquery_data(query_list, key_word):
+    """
+    Modifies a list of query items by removing digits and trailing underscores,
+    and appends '_oxford' to each item. Removes duplicates from the modified list.
+
+    Parameters:
+    - query_list (list): A list of query items.
+
+    Returns:
+    - modified_list (list): A modified and sorted list of query items with unique elements.
+    """
+    modified_set = set()
+    modified_list = []
+
+    for item in query_list:
+        # Remove digits, then remove trailing underscores
+        modified_item = ''.join(char for char in item if not char.isdigit())
+        modified_item = modified_item.rstrip('_') + key_word
+
+        # If the element is not in the set, add it to the set and the modified list
+        if modified_item not in modified_set:
+            modified_set.add(modified_item)
+            modified_list.append(modified_item)
+
+    # Sort the modified list
+    modified_list = sorted(modified_list)
+
+    print(f"\n The query places are: {modified_list}")
+    return modified_list
+
+
+
+
+
+# 根据输入的信息来查询。并且输出前三局话和一个图片链接
+def search_wikipedia(query):
+    """
+       Searches for a query on Wikipedia and retrieves the summary and the first image.
+
+       Parameters:
+       - query (str): The search query for Wikipedia.
+
+       Returns:
+       - summary (str): The first 300 characters of the Wikipedia page summary.
+       - first_image (str): The URL of the first image on the Wikipedia page, or None if no images are found.
+       """
+    try:
+        # 获取维基百科页面对象
+        # create a search object
+        page = wikipedia.page(query)
+
+        # 获取页面的前三句话摘要
+        # retrieve the first three sentences
+        summary = page.summary[:300]  # 取前300个字符作为摘要
+        print("\n")
+        print("###################################################")
+        print("Page summary:")
+        print(summary)
+
+        # create a list of images
+        # 获取页面的图片列表
+        images = page.images
+        # get the first images
+        # 获取第一张图片（如果有的话）
+        first_image = images[0] if images else None
+        if first_image:
+            print("\nFirst image:")
+            print(first_image)
+
+        return summary, first_image
+    except wikipedia.exceptions.DisambiguationError as e:
+        # deal with the error of semantics
+        # 处理消歧义错误
+        print("DisambiguationError:", e.options)
+        return None, None
+    except wikipedia.exceptions.PageError as e:
+        # 处理页面错误
+        print("PageError:", e)
+        return None, None
+
+def retrieval_data(query):
+    # Call the search_wikipedia function to get summary and first image
+    summary, first_image = search_wikipedia(query)
+
+    if summary is not None and first_image is not None:
+        # Open the 'save_data' file in append mode
+        with open('save_data.txt', 'a', encoding='utf-8') as file:
+            # Append the summary and first image URL to the file
+            file.write("Query: {}\n".format(query))
+            file.write("Summary:\n")
+            file.write(summary + '\n\n')
+            file.write("First Image:\n")
+            file.write(first_image + '\n')
+            file.write("###################################################\n\n")
+
+        print("Data appended successfully in 'save_data.txt'")
+        print("###################################################")
+    else:
+        print("No data to save.")
