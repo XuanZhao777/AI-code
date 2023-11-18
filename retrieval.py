@@ -119,5 +119,21 @@ if COMMUNITY_SELECTION==2:
     print(community_selection.N_RANSAC)
 
 
+if retrieval_dataset == 'roxford' or retrieval_dataset == 'R1Moxford':
+    query_list, index_list, ground_truth = dataset.ReadDatasetFile('data/roxford/gnd_roxford5k.mat')
+    query_list = query_list[:70]
+    query_list_modified = wikipedia_search.modify_inquery_data(query_list, "_oxford")
+    for query in query_list_modified:
+        wikipedia_search.retrieval_data(query)
+
+if retrieval_dataset == 'rparis' or retrieval_dataset == 'R1Mparis':
+    query_list, index_list, ground_truth = dataset.ReadDatasetFile('data/rparis/gnd_rparis6k.mat')
+    query_list = query_list[:70]
+    query_list_modified = wikipedia_search.modify_inquery_data(query_list, "")
+    for query in query_list_modified:
+        wikipedia_search.retrieval_data(query)
+
+
+
 
     
