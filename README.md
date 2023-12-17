@@ -1,6 +1,8 @@
 # Due to upload size limitations, I am unable to upload my database. Please go to my Google Cloud Drive to download.
 https://drive.google.com/file/d/1rAQenZhFnzbV1z_6BU-Gmpc-lwo16j-5/view?usp=drive_link
-Ensure that the execution process follows the following structure
+
+Ensure that the execution process follows the following structure:
+
 ![Example](https://github.com/XuanZhao777/AI-code/assets/149707203/b830ed87-2050-44eb-b267-87b75c85f2f1)
 
 
